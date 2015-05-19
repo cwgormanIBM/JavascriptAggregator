@@ -18,7 +18,7 @@ package com.ibm.jaggr.core.impl.resource;
 
 import com.ibm.jaggr.core.resource.IResource;
 import com.ibm.jaggr.core.resource.IResourceFactory;
-
+import com.ibm.jaggr.core.impl.resource.NotFoundResource;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -82,6 +82,17 @@ public class FileResourceFactory implements IResourceFactory {
 	@Override
 	public boolean handles(URI uri) {
 		return "file".equals(uri.getScheme()); //$NON-NLS-1$
+	}
+
+	/**
+	 * Utility method that can be overridden for returning an IResource object
+	 * for a URI that points to a file that does not exist. The default case
+	 * returns a NotFoundResource.
+	 * @param uri The URI pointing to the file that does not exist
+	 * @return The IResource object
+	 */
+	protected IResource handleNotFoundResource(URI uri) {
+		return new NotFoundResource(uri);
 	}
 
 	/**

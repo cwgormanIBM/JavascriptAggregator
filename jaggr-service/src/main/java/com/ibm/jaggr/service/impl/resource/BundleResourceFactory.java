@@ -21,7 +21,6 @@ import com.ibm.jaggr.core.IAggregatorExtension;
 import com.ibm.jaggr.core.IExtensionInitializer;
 import com.ibm.jaggr.core.impl.resource.FileResource;
 import com.ibm.jaggr.core.impl.resource.JSXResourceFactory;
-import com.ibm.jaggr.core.impl.resource.NotFoundResource;
 import com.ibm.jaggr.core.impl.resource.ResolverResource;
 import com.ibm.jaggr.core.resource.IResource;
 import com.ibm.jaggr.core.util.PathUtil;
@@ -38,7 +37,6 @@ import org.osgi.framework.ServiceReference;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -115,10 +113,10 @@ public class BundleResourceFactory extends JSXResourceFactory implements IExtens
 					}
 					result = newResource(uri);
 				} else {
-					result = new NotFoundResource(uri);
+					result = handleNotFoundResource(uri);
 				}
 			} else {
-				result = new NotFoundResource(uri);
+				result = handleNotFoundResource(uri);
 			}
 		} else {
 			throw new UnsupportedOperationException(uri.getScheme());
