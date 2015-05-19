@@ -20,7 +20,7 @@ import com.ibm.jaggr.core.IAggregator;
 import com.ibm.jaggr.core.IAggregatorExtension;
 import com.ibm.jaggr.core.IExtensionInitializer;
 import com.ibm.jaggr.core.impl.resource.FileResource;
-import com.ibm.jaggr.core.impl.resource.FileResourceFactory;
+import com.ibm.jaggr.core.impl.resource.JSXResourceFactory;
 import com.ibm.jaggr.core.impl.resource.NotFoundResource;
 import com.ibm.jaggr.core.impl.resource.ResolverResource;
 import com.ibm.jaggr.core.resource.IResource;
@@ -45,7 +45,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class BundleResourceFactory extends FileResourceFactory implements IExtensionInitializer {
+public class BundleResourceFactory extends JSXResourceFactory implements IExtensionInitializer {
 	static final Logger log = Logger.getLogger(BundleResourceFactory.class.getName());
 
 	private Bundle contributingBundle;
