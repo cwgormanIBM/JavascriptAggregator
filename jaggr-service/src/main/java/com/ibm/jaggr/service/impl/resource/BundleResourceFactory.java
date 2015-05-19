@@ -77,19 +77,7 @@ public class BundleResourceFactory extends JSXResourceFactory implements IExtens
 				URI fileUri = null;
 				try {
 					fileUri = PathUtil.url2uri(converter.toFileURL(toURL(uri)));
-					FileResource fileResource = null;
-					Constructor<?> constructor = getNIOFileResourceConstructor(URI.class);
-					try {
-						fileResource = (FileResource)getNIOInstance(constructor, fileUri);
-					} catch (Throwable t) {
-						if (log.isLoggable(Level.SEVERE)) {
-							log.log(Level.SEVERE, t.getMessage(), t);
-						}
-					}
-
-					if (fileResource == null) {
-						fileResource = new FileResource(fileUri);
-					}
+					FileResource fileResource = (FileResource) super.newResource(fileUri);
 					// Wrap the result in a ResolverResource so that this resource factory object
 					// will be used to construct new, resolved resources.  This is necessary since
 					// URLConverter.toFileURL needs to be invoked on any resolved resources to
