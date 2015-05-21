@@ -177,9 +177,13 @@ public class JsxResourceConverter implements IResourceConverter, IExtensionIniti
 		try {
 			// read the contents of the jsx file and convert it
 			String jsx = IOUtils.toString(jsxRes.getInputStream());
-			NativeObject convertedJSX = (NativeObject) transformFunction.call(ctx, globalScope, jsxTransformScript, new String[]{jsx});
-			// write the contents of the transformed javascript to the target file
-			String jsstring = convertedJSX.get("code").toString();  //$NON-NLS-1$
+			NativeObject convertedJSX;
+			String jsstring;
+			synchronized (this) {
+				convertedJSX = (NativeObject) transformFunction.call(ctx, globalScope, jsxTransformScript, new String[]{jsx});
+				// write the contents of the transformed javascript to the target file
+				jsstring = convertedJSX.get("code").toString();  //$NON-NLS-1$
+			}
 			FileUtils.writeStringToFile(target, jsstring);
 			result = true;
 		} catch (IOException e) {
